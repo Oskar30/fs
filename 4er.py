@@ -1,6 +1,3 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-
 zodiac_dict = {
     'aries': 'Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).',
     'taurus': 'Телец - второй знак зодиака, планета Венера (с 21 апреля по 21 мая).',
@@ -16,19 +13,13 @@ zodiac_dict = {
     'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).',
 }
 
-zodiac_name_l = list(zodiac_dict)
+fire_list, earth_list, air_list, water_list = [], [], [], []
 
-print(description = zodiac_dict.get('leo'))
+print(fire_list, earth_list, air_list, water_list)
 
 
 
-def sign_info(request, sign: str):
-    description = zodiac_dict.get(sign)
 
-    if description:
-        return HttpResponse(description)    
-    else:
-        return HttpResponseNotFound(f'unknown zodiac sign - {sign}')
 
 
 '''

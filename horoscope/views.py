@@ -82,5 +82,20 @@ def type(request):
 
 
 def elemental(request, element: str):
-    pass
+    content = []
+    if element == 'fire':
+        for el in zodiac_dict:
+            if zodiac_dict[el]['element'] == element:
+                pass
+
+
+    else:
+        content.append(f'not elemental {element}')
+
+    return HttpResponse(content)
+
+    
+  
+        
+
 
