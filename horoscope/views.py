@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from datetime import date
+from horoscope import Class_Zodiac
+
 
 zodiac_dict = {
     'aries': 
@@ -67,7 +70,7 @@ def index(request):
     for sign in zodiac_name_list:
         content.append(f'<h2><li><a href="{sign}">{sign}</a></li></h2>')
 
-    return HttpResponse(content) 
+    return HttpResponse(content)
 
 
 def type(request):
@@ -82,20 +85,45 @@ def type(request):
 
 
 def elemental(request, element: str):
-    content = []
+    bufer_list, content = [], []
+
     if element == 'fire':
         for el in zodiac_dict:
             if zodiac_dict[el]['element'] == element:
-                pass
+                bufer_list.append(el)
+    
+    elif element == 'earth':
+        for el in zodiac_dict:
+            if zodiac_dict[el]['element'] == element:
+                bufer_list.append(el)
 
+    elif element == 'air':
+        for el in zodiac_dict:
+            if zodiac_dict[el]['element'] == element:
+                bufer_list.append(el)
+
+    elif element == 'water':
+        for el in zodiac_dict:
+            if zodiac_dict[el]['element'] == element:
+                bufer_list.append(el)
 
     else:
-        content.append(f'not elemental {element}')
+        return HttpResponse(f'<h2>not elemental {element}</h2>')        
+    
+    for sign in bufer_list:        
+        content.append(f'<h2><li><a href="//127.0.0.1:8000/horoscope/{sign}/">{sign}</a></li></h2>')
 
     return HttpResponse(content)
 
+
+def get_info_by_date(request, month, day):
+    input_date = date(2023, month, day)
     
-  
-        
+    if input_date >= Class_Zodiac.Aries.date and input_date < Class_Zodiac.Taurus.date:
 
+        zodiac_name = Class_Zodiac.zodiac_list[0]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)  
 
+    else:
+        return HttpResponse('NO')
