@@ -57,12 +57,11 @@ def sign_info_number(request, sign_number: int):
     
 
 def sign_info(request, sign: str):
+    template = 'horoscope/info_zodiac.html'
     zodiac = zodiac_dict.get(sign)
-    description = zodiac['description']
     if zodiac:
-        return HttpResponse(f'<h2>{description}</h2>')
-    else:
-        return HttpResponseNotFound(f'unknown zodiac sign - {sign}')
+        return render(request, template)
+
 
 
 def index(request):
@@ -117,13 +116,72 @@ def elemental(request, element: str):
 
 
 def get_info_by_date(request, month, day):
-    input_date = date(2023, month, day)
+
+    if month < 3 and day < 21:
+        input_date = date(2023, month, day)
+    else:
+        input_date = date(2022, month, day)
+
     
     if input_date >= Class_Zodiac.Aries.date and input_date < Class_Zodiac.Taurus.date:
-
         zodiac_name = Class_Zodiac.zodiac_list[0]
         redirect_url = reverse('horoscope-name', args=(zodiac_name,))
         return HttpResponseRedirect(redirect_url)  
 
-    else:
-        return HttpResponse('NO')
+    elif input_date >= Class_Zodiac.Taurus.date and input_date < Class_Zodiac.Gemini.date:
+        zodiac_name = Class_Zodiac.zodiac_list[1]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Gemini.date and input_date < Class_Zodiac.Cancer.date:
+        zodiac_name = Class_Zodiac.zodiac_list[2]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Cancer.date and input_date < Class_Zodiac.Leo.date:
+        zodiac_name = Class_Zodiac.zodiac_list[3]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Leo.date and input_date < Class_Zodiac.Virgo.date:
+        zodiac_name = Class_Zodiac.zodiac_list[4]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Virgo.date and input_date < Class_Zodiac.Libra.date:
+        zodiac_name = Class_Zodiac.zodiac_list[5]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Libra.date and input_date < Class_Zodiac.Scorpio.date:
+        zodiac_name = Class_Zodiac.zodiac_list[6]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Scorpio.date and input_date < Class_Zodiac.Sagittarius.date:
+        zodiac_name = Class_Zodiac.zodiac_list[7]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Sagittarius.date and input_date < Class_Zodiac.Capricorn.date:
+        zodiac_name = Class_Zodiac.zodiac_list[8]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Capricorn.date and input_date < Class_Zodiac.Aquarius.date:
+        zodiac_name = Class_Zodiac.zodiac_list[9]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Aquarius.date and input_date < Class_Zodiac.Pisces.date:
+        zodiac_name = Class_Zodiac.zodiac_list[10]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+    elif input_date >= Class_Zodiac.Pisces.date and input_date < Class_Zodiac.Aries.date:
+        zodiac_name = Class_Zodiac.zodiac_list[12]
+        redirect_url = reverse('horoscope-name', args=(zodiac_name,))
+        return HttpResponseRedirect(redirect_url)
+
+
+    return HttpResponse(f'День {day} месяц {month}: Введенной даты не существует')
