@@ -59,17 +59,18 @@ def sign_info_number(request, sign_number: int):
 def sign_info(request, sign: str):
     template = 'horoscope/info_zodiac.html'
     zodiac = zodiac_dict.get(sign)
+    data = {'description_sign':zodiac,
+            'sign':sign}
+
     if zodiac:
-        return render(request, template)
-
-
+        return render(request, template, data)
+ 
 
 def index(request):
-    content = []
-    for sign in zodiac_name_list:
-        content.append(f'<h2><li><a href="{sign}">{sign}</a></li></h2>')
+    template = 'horoscope/index.html'
+    context = {'sign':zodiac_dict}
 
-    return HttpResponse(content)
+    return render(request, template, context)
 
 
 def type(request):
